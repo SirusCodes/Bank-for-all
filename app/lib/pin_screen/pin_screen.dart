@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 class PinScreen extends StatefulWidget {
+  const PinScreen({Key key}) : super(key: key);
+
   @override
   _PinScreenState createState() => _PinScreenState();
 }
@@ -20,26 +22,27 @@ class _PinScreenState extends State<PinScreen> {
 
   final List<Widget> myDots = [];
 
-  void addDot(int number) {
-    {
-      final dot = Container(
-        margin: const EdgeInsets.only(left: 15),
-        width: 20,
-        height: 20,
-        decoration: BoxDecoration(
-            color: Colors.black87, borderRadius: BorderRadius.circular(20)),
-      );
+  String _pin = "";
 
-      setState(() {
-        if (ctr < 4) {
-          ctr++;
-          myDots.add(dot);
-        } else {
-          ctr = 0;
-          myDots.clear();
-          speak("Retry");
-        }
-      });
+  final Container dot = Container(
+    margin: const EdgeInsets.only(left: 15),
+    width: 20,
+    height: 20,
+    decoration: BoxDecoration(
+        color: Colors.black87, borderRadius: BorderRadius.circular(20)),
+  );
+
+  void addDot(int number) {
+    if (ctr < 4) {
+      ctr++;
+      myDots.add(dot);
+      _pin += number.toString();
+      speak("$number is added");
+    } else {
+      ctr = 0;
+      _pin = "";
+      myDots.clear();
+      speak("Retry");
     }
   }
 
@@ -124,24 +127,21 @@ class _PinScreenState extends State<PinScreen> {
   Widget numberButton(int number) {
     return Semantics(
       button: true,
+      excludeSemantics: true,
       value: number.toString(),
       child: GestureDetector(
-        onTap: () {
-          addDot(number);
-          speak("$number is added");
-        },
-        child: ExcludeSemantics(
-          child: Container(
-            margin: const EdgeInsets.only(top: 30, bottom: 10),
-            width: 80,
-            height: 80,
-            decoration:
-                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-            child: Center(
-                child: Text(
+        onTap: () => setState(() => addDot(number)),
+        child: Container(
+          margin: const EdgeInsets.only(top: 30, bottom: 10),
+          width: 80,
+          height: 80,
+          decoration:
+              BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          child: Center(
+            child: Text(
               number.toString(),
               style: const TextStyle(fontSize: 30),
-            )),
+            ),
           ),
         ),
       ),
