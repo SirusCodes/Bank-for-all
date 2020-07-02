@@ -1,5 +1,7 @@
-import 'package:bank_for_all/landing_screen/landing_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'landing_screen/landing_screen.dart';
+import 'utils/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,10 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: theme,
       home: const LandingScreen(),
     );
   }
