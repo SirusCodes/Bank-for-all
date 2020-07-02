@@ -45,7 +45,9 @@ class _PinScreenState extends State<PinScreen> {
       speak("$number is added");
       if(_pin==pssw){
         Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentStatus(result:"Successful",ico:"tick")));
-
+        ctr = 0;
+        _pin = "";
+        myDots.clear();
       }
     }
     else {
