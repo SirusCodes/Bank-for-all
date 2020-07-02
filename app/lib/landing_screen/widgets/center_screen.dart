@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class CenterScreen extends StatelessWidget {
   const CenterScreen({
@@ -10,25 +11,34 @@ class CenterScreen extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Center(
-          child: Image.asset("assets/images/mic_icon.png"),
+          child: ExcludeSemantics(
+            child: Image.asset("assets/images/mic_icon.png"),
+          ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 50),
-            child: RaisedButton(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 25.0,
-                vertical: 20,
-              ),
-              color: Theme.of(context).buttonColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Confirm",
-                style: TextStyle(fontSize: 20),
+            child: Semantics(
+              sortKey: const OrdinalSortKey(0),
+              child: RaisedButton(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 25.0,
+                  vertical: 20,
+                ),
+                color: Theme.of(context).buttonColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                onPressed: () {},
+                child: const Text(
+                  "Confirm",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ),

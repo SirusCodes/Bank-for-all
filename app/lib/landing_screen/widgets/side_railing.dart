@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class SideRailing extends StatelessWidget {
   const SideRailing({
@@ -29,6 +30,7 @@ class SideRailing extends StatelessWidget {
                   child: Semantics(
                     button: true,
                     value: "Restart Transaction",
+                    sortKey: const OrdinalSortKey(1),
                     child: InkWell(
                       onTap: () {},
                       child: Column(
@@ -46,6 +48,7 @@ class SideRailing extends StatelessWidget {
                 child: Semantics(
                   button: true,
                   value: "Get Balance",
+                  sortKey: const OrdinalSortKey(2),
                   child: InkWell(
                     onTap: () {},
                     child: Image.asset("assets/images/wallet.png"),
@@ -56,6 +59,7 @@ class SideRailing extends StatelessWidget {
                 child: Semantics(
                   button: true,
                   value: "Get help from executive",
+                  sortKey: const OrdinalSortKey(3),
                   child: InkWell(
                     onTap: () {},
                     child: Column(
