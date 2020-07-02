@@ -1,3 +1,4 @@
+import 'package:bank_for_all/pin_screen/pin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -34,7 +35,7 @@ class CenterScreen extends StatelessWidget {
                 ),
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const AuthTypeScreen()),
+                  MaterialPageRoute(builder: (_) => const PinScreen()),
                 ),
                 child: const Text(
                   "Confirm",
