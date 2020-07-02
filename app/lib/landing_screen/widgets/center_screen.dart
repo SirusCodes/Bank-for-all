@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../../auth_type_screen/auth_type_screen.dart';
+
 class CenterScreen extends StatelessWidget {
   const CenterScreen({
     Key key,
@@ -30,7 +32,10 @@ class CenterScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AuthTypeScreen()),
+                ),
                 child: const Text(
                   "Confirm",
                   style: TextStyle(
