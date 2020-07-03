@@ -1,6 +1,7 @@
-import 'package:bank_for_all/landing_screen/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_auth_invisible/flutter_local_auth_invisible.dart';
+
+import '../landing_screen/landing_screen.dart';
 
 class FingerPrintScreen extends StatefulWidget {
   const FingerPrintScreen({Key key}) : super(key: key);

@@ -1,6 +1,7 @@
-import 'package:bank_for_all/pin_screen/pin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+import '../../pin_screen/pin_screen.dart';
 
 class CenterScreen extends StatelessWidget {
   const CenterScreen({
