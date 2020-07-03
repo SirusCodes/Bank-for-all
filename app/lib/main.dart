@@ -1,10 +1,11 @@
-import 'package:bank_for_all/payment_status/payment_status.dart';
-import 'package:bank_for_all/pin_screen/pin_screen.dart';
 import 'package:flutter/material.dart';
-import 'landing_screen/landing_screen.dart';
+
+import 'splash_screen/splash_screen.dart';
+import 'utils/setup_locator.dart';
 import 'utils/theme.dart';
 
 void main() {
+  // setupLocator();
   runApp(MyApp());
 }
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: theme,
-      home: PinScreen(),
+      home: const SplashScreen(),
     );
   }
 }
