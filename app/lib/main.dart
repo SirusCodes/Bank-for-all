@@ -1,7 +1,6 @@
-import 'package:bank_for_all/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'splash_screen/splash_screen.dart';
+import 'screens/login_screen/login_screen.dart';
 
 import 'utils/theme.dart';
 
