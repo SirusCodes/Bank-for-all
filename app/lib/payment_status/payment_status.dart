@@ -16,9 +16,6 @@ class _PaymentStatusState extends State<PaymentStatus> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text("Bank For All"),
-        ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
 
