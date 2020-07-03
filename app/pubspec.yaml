@@ -31,6 +31,7 @@ dependencies:
   firebase_auth: ^0.16.1
   shared_preferences: ^0.5.7+3
   animated_splash_screen: ^1.0.0+1
+  json_annotation: ^3.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,6 +42,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   lint: ^1.2.0
+  build_runner: ^1.10.0
+  json_serializable: ^3.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

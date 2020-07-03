@@ -1,9 +1,9 @@
-import 'package:bank_for_all/screens/fingerprint_screen/fingerprint_screen.dart';
-import 'package:bank_for_all/screens/landing_screen/landing_screen.dart';
-import 'package:bank_for_all/services/auth_service.dart';
-import 'package:bank_for_all/utils/setup_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+
+import '../../services/auth_service.dart';
+import '../../utils/setup_locator.dart';
+import '../landing_screen/landing_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
