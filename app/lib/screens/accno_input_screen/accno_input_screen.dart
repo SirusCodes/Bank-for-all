@@ -42,7 +42,7 @@ int ctr = 0;
                 width: 350,
                 child: Center(
                   child: Text(
-                    "Enter the mount",
+                    "Enter the Account number",
                     style:TextStyle(
                       color: Colors.white,
                       fontSize: 30,
