@@ -59,6 +59,7 @@ flutter:
     - assets/images/phone.png
     - assets/images/reset.png
     - assets/images/wallet.png
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
