@@ -7,7 +7,7 @@ class SharedPrefs {
 
   String name, email, authID;
 
-  Future<void> setUser() async {
+  Future<void> setUser(String name, String email, String authID) async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
 
     _prefs.setString(nameKey, name);
