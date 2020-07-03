@@ -1,7 +1,8 @@
+import 'package:bank_for_all/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'splash_screen/splash_screen.dart';
-import 'utils/setup_locator.dart';
+
 import 'utils/theme.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: theme,
-      home: SplashScreen(),
+      home: const LoginScreen(),
     );
   }
 }
