@@ -21,11 +21,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 .signInWithGoogle()
                 .catchError((e) {})
                 .then(
-                  (value) => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const FingerPrintScreen())),
-                ),
+              (value) {
+                if (value) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const FingerPrintScreen()),
+                  );
+                }
+              },
+            ),
             borderRadius: BorderRadius.circular(30),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30),

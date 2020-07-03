@@ -1,8 +1,8 @@
-import 'package:bank_for_all/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../models/user_model.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -22,8 +22,10 @@ class AuthService {
     return _auth.onAuthStateChanged.map(_userFromFirebase);
   }
 
-  Future<void> signInWithGoogle() async {
-    final GoogleSignInAccount googleSignInAccount = await _googleSignIn
+  Future<bool> signInWithGoogle() async {
+    GoogleSignInAccount googleSignInAccount;
+
+    googleSignInAccount = await _googleSignIn
         .signIn()
         .catchError((e) => debugPrint(e.toString()));
 
@@ -45,16 +47,12 @@ class AuthService {
         final FirebaseUser currentUser = await _auth.currentUser();
         assert(user.uid == currentUser.uid);
 
-        return _userFromFirebase(user);
-      } else {
-        throw PlatformException(
-            code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
-            message: 'Missing Google Auth Token');
+        _userFromFirebase(user);
+        return true;
       }
-    } else {
-      throw PlatformException(
-          code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
     }
+
+    return false;
   }
 
   void signOutGoogle() async {
