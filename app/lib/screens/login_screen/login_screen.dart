@@ -1,4 +1,5 @@
 import 'package:bank_for_all/screens/fingerprint_screen/fingerprint_screen.dart';
+import 'package:bank_for_all/screens/landing_screen/landing_screen.dart';
 import 'package:bank_for_all/services/auth_service.dart';
 import 'package:bank_for_all/utils/setup_locator.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +22,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 .signInWithGoogle()
                 .catchError((e) {})
                 .then(
-                  (value) => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const FingerPrintScreen())),
-                ),
+              (value) {
+                if (value) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const LandingScreen()),
+                  );
+                }
+              },
+            ),
             borderRadius: BorderRadius.circular(30),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30),
