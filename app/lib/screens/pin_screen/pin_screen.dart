@@ -1,4 +1,4 @@
-import 'package:bank_for_all/payment_status/payment_status.dart';
+import 'package:bank_for_all/screens/payment_status/payment_status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -12,10 +12,10 @@ class PinScreen extends StatefulWidget {
 
 class _PinScreenState extends State<PinScreen> {
   final FlutterTts flutterTts = FlutterTts();
-  
-  var result,bgcol,ico;
-  
-  var pssw="1234";
+
+  var result, bgcol, ico;
+
+  var pssw = "1234";
 
   Future speak(String word) async {
     await flutterTts.setLanguage("en-US");
@@ -43,18 +43,25 @@ class _PinScreenState extends State<PinScreen> {
       myDots.add(dot);
       _pin += number.toString();
       speak("$number is added");
-      if(_pin==pssw){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentStatus(result:"Successful",ico:"tick")));
+      if (_pin == pssw) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    PaymentStatus(result: "Successful", ico: "tick")));
         ctr = 0;
         _pin = "";
         myDots.clear();
       }
-    }
-    else {
+    } else {
       ctr = 0;
       _pin = "";
       myDots.clear();
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentStatus(result:"Unsuccessful",ico:"cross")));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  PaymentStatus(result: "Unsuccessful", ico: "cross")));
     }
   }
 
