@@ -50,7 +50,7 @@ class AuthService {
     return false;
   }
 
-  void signOutGoogle() async {
+  Future<void> signOutGoogle() async {
     await _auth.signOut();
   }
 }
