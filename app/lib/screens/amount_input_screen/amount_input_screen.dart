@@ -1,10 +1,13 @@
 import 'package:bank_for_all/screens/accno_input_screen/accno_input_screen.dart';
+import 'package:bank_for_all/screens/pin_screen/pin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
 class AmountInputScreen extends StatefulWidget {
-  const AmountInputScreen({Key key}) : super(key: key);
+  const AmountInputScreen({Key key, @required this.vendorID}) : super(key: key);
+
+  final String vendorID;
   @override
   _AmountInputScreenState createState() => _AmountInputScreenState();
 }
@@ -15,13 +18,16 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
   final FlutterTts flutterTts = FlutterTts();
 
   void addDot(int number) {
-    if (ctr < 6) {
+    if (int.parse(resultText) < 6) {
       ctr++;
 
       resultText += number.toString();
+      speak("$number was added");
     } else {
       ctr = 0;
       resultText = "";
+
+      speak("Amount above 99999 should be made from bank only");
     }
   }
 
@@ -177,30 +183,62 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                numberButton(0),
-                
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Semantics(
-                  label: "Go to Account Number input Screen",
+                  label: "Backspace",
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AccnoInputScreen()));
+                      final len = resultText.length;
+                      resultText = resultText.substring(0, len - 1);
+
+                      ctr = len - 1;
+
+                      setState(() {});
+
+                      speak("last number is removed");
                     },
                     child: Container(
-                      
-                      width: 150,
-                      height: 50,
+                      margin: const EdgeInsets.only(top: 30, bottom: 10),
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
-                          color: Colors.blue[200], borderRadius: BorderRadiusDirectional.circular(15)),
+                          color: Colors.blue[200],
+                          borderRadius: BorderRadiusDirectional.circular(15)),
+                      child: Icon(
+                        Icons.backspace,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
+                numberButton(0),
+                Semantics(
+                  label: "Confirm to enter pin",
+                  child: InkWell(
+                    onTap: () {
+                      if (resultText.isNotEmpty && int.parse(resultText) > 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PinScreen(
+                              vendorID: widget.vendorID,
+                              amount: resultText,
+                            ),
+                          ),
+                        );
+                      } else {
+                        speak("Enter some Amount");
+                      }
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 30, bottom: 10),
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          color: Colors.blue[200],
+                          borderRadius: BorderRadiusDirectional.circular(15)),
                       child: Icon(
                         Icons.keyboard_arrow_right,
                         color: Colors.black,
@@ -210,7 +248,7 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -233,7 +271,7 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
           child: Center(
             child: Text(
               number.toString(),
-              style: const TextStyle(fontSize: 30),
+              style: const TextStyle(fontSize: 45),
             ),
           ),
         ),

@@ -9,23 +9,16 @@ class CenterScreen extends StatefulWidget {
   const CenterScreen({Key key}) : super(key: key);
 
   @override
-  _CenterScreenState createState() => _CenterScreenState();
+  CenterScreenState createState() => CenterScreenState();
 }
 
-class _CenterScreenState extends State<CenterScreen> {
+class CenterScreenState extends State<CenterScreen> {
   int ctr = 0;
 
   final FlutterTts flutterTts = FlutterTts();
 
-  void addDot(int number) {
-    if (ctr < 6) {
-      ctr++;
-
-      resultText += number.toString();
-    } else {
-      ctr = 0;
-      resultText = "";
-    }
+  void resetVendor() {
+    resultText = "";
   }
 
   SpeechRecognition _speechRecognition;
@@ -121,10 +114,20 @@ class _CenterScreenState extends State<CenterScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const AmountInputScreen()),
-                ),
+                onPressed: () {
+                  if (resultText.isNotEmpty) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => AmountInputScreen(vendorID: resultText),
+                      ),
+                    );
+                  } else {
+                    speak(
+                      "to proceed to pay say vendor id by pressing on center button and the confirm it",
+                    );
+                  }
+                },
                 child: const Text(
                   "Confirm",
                   style: TextStyle(
