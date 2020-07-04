@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_auth_invisible/flutter_local_auth_invisible.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 import '../landing_screen/landing_screen.dart';
 
@@ -27,11 +28,20 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
     if (!mounted) return;
 
     if (authenticated) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const LandingScreen()),
       );
     }
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      speak("authenticate with fingerprint to continue");
+    });
+  }
+
+  final FlutterTts flutterTts = FlutterTts();
+  Future speak(String word) async {
+    await flutterTts.speak(word);
   }
 
   @override
@@ -48,10 +58,12 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(
-            "Authenticate with fingerprint to continue",
-            style: TextStyle(color: Colors.white, fontSize: 30),
-            textAlign: TextAlign.center,
+          const ExcludeSemantics(
+            child: Text(
+              "Authenticate with fingerprint to continue",
+              style: TextStyle(color: Colors.white, fontSize: 30),
+              textAlign: TextAlign.center,
+            ),
           ),
           const SizedBox(height: 10),
           Icon(
