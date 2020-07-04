@@ -1,3 +1,4 @@
+import 'package:bank_for_all/screens/pin_screen/pin_screen.dart';
 import 'package:flutter/material.dart';
 
 class AccnoInputScreen extends StatefulWidget {
@@ -6,13 +7,11 @@ class AccnoInputScreen extends StatefulWidget {
 }
 
 class _AccnoInputScreenState extends State<AccnoInputScreen> {
-int ctr = 0;
+  int ctr = 0;
 
   final List<int> amount = [];
 
   String _pin = "";
-
-
 
   void addDot(int number) {
     if (ctr < 6) {
@@ -24,7 +23,6 @@ int ctr = 0;
       ctr = 0;
       _pin = "";
       amount.clear();
-     
     }
   }
 
@@ -35,21 +33,37 @@ int ctr = 0;
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(bottom: 20),
-                
-                height: 40,
-                width: 350,
-                child: Center(
-                  child: Text(
-                    "Enter the Account number",
-                    style:TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
+            Row(
+              children: <Widget>[
+                Semantics(
+                  label: "Go back",
+                  child: InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 50,
+                      ),
                     ),
-                    ),
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+              height: 40,
+              width: 350,
+              child: Center(
+                child: Text(
+                  "Enter the Account number",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
                 ),
               ),
+            ),
             Container(
               width: 350,
               height: 50,
@@ -68,19 +82,19 @@ int ctr = 0;
                       children: <Widget>[
                         Text(
                           "$_pin",
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 5),
-                          ),
-                          
+                          style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 5),
+                        ),
                       ],
                     ),
                   ),
                   Semantics(
-                    label: "Double tap to speak",
-                    child: Image.asset("assets/images/mic_icon.png")
-                    )
+                      label: "Double tap to speak",
+                      child: ExcludeSemantics(
+                          child: Image.asset("assets/images/mic_icon.png"))
+                          )
                 ],
               ),
             ),
@@ -113,11 +127,38 @@ int ctr = 0;
                 numberButton(9),
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 numberButton(0),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Semantics(
+                  label: "Go to Pin input Screen",
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PinScreen()));
+                    },
+                    child: Container(
+                      
+                      width: 150,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.blue[200], borderRadius: BorderRadiusDirectional.circular(15)),
+                      child: Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Colors.black,
+                        size: 40,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             )
           ],

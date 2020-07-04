@@ -72,23 +72,33 @@ class _PinScreenState extends State<PinScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-//          Container(
-//            height: 40,
-//            child: ListView(
-//              scrollDirection: Axis.horizontal,
-//              children: <Widget>[
-//                Container(
-//                  width: 20,
-//                  height: 20,
-//                  decoration: BoxDecoration(
-//                      color: Colors.white,
-//                      shape: BoxShape.circle
-//                  ),
-//                ),
-//
-//              ],
-//            ),
-//          ),
+            Row(
+              children: <Widget>[
+                Semantics(
+                  label: "Go back",
+                  child: InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Center(
+              child: Text(
+                "Enter the Pin",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 36,
+                ),
+              ),
+            ),
             Container(
               width: 350,
               height: 50,
@@ -130,13 +140,12 @@ class _PinScreenState extends State<PinScreen> {
                 numberButton(9),
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 numberButton(0),
               ],
-            )
+            ),
           ],
         ),
       ),
