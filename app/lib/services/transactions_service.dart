@@ -36,8 +36,8 @@ class TransactionService {
     return ref.where("transactionType", isEqualTo: "withdraw").snapshots();
   }
 
-  Future<DocumentReference> addTransaction(trans.Transaction tran) {
-    init();
+  Future<DocumentReference> addTransaction(trans.Transaction tran) async {
+    await init();
     return ref.add(tran.toJson());
   }
 }

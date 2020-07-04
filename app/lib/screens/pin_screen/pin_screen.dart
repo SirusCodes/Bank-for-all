@@ -1,11 +1,23 @@
+import 'package:bank_for_all/enums/transaction_type.dart';
+import 'package:bank_for_all/models/transaction/transaction.dart';
+import 'package:bank_for_all/models/user/user.dart';
 import 'package:bank_for_all/screens/payment_status/payment_status.dart';
+import 'package:bank_for_all/services/shared_prefs.dart';
+import 'package:bank_for_all/services/transactions_service.dart';
+import 'package:bank_for_all/services/user_service.dart';
+import 'package:bank_for_all/utils/setup_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 class PinScreen extends StatefulWidget {
-  const PinScreen({Key key}) : super(key: key);
+  const PinScreen({
+    Key key,
+    @required this.vendorID,
+    @required this.amount,
+  }) : super(key: key);
 
+  final String vendorID, amount;
   @override
   _PinScreenState createState() => _PinScreenState();
 }
@@ -13,12 +25,9 @@ class PinScreen extends StatefulWidget {
 class _PinScreenState extends State<PinScreen> {
   final FlutterTts flutterTts = FlutterTts();
 
-  var result, bgcol, ico;
-
   var pssw = "1234";
 
   Future speak(String word) async {
-    await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1);
     await flutterTts.speak(word);
   }
@@ -34,7 +43,9 @@ class _PinScreenState extends State<PinScreen> {
     width: 20,
     height: 20,
     decoration: BoxDecoration(
-        color: Colors.black87, borderRadius: BorderRadius.circular(20)),
+      color: Colors.black87,
+      borderRadius: BorderRadius.circular(20),
+    ),
   );
 
   void addDot(int number) {
@@ -44,25 +55,78 @@ class _PinScreenState extends State<PinScreen> {
       _pin += number.toString();
       speak("$number is added");
       if (_pin == pssw) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    PaymentStatus(result: "Successful", ico: "tick")));
-        ctr = 0;
-        _pin = "";
-        myDots.clear();
+        ifSuccess(context, widget.amount, widget.vendorID);
       }
     } else {
       ctr = 0;
       _pin = "";
       myDots.clear();
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  PaymentStatus(result: "Unsuccessful", ico: "cross")));
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              PaymentStatus(result: "Unsuccessful", ico: "cross"),
+        ),
+      );
     }
+  }
+
+  Future<void> ifSuccess(
+    BuildContext context,
+    String amount,
+    String vendorID,
+  ) async {
+    final snap = await locator<UserService>().getUserData();
+
+    final User user = User.fromJson(snap.data);
+
+    final closingBal = int.parse(user.balance) - int.parse(amount);
+
+    final hasBalance = closingBal > 0;
+
+    if (hasBalance) {
+      locator<TransactionService>().addTransaction(Transaction(
+        closingBalance: closingBal.toString(),
+        amount: widget.amount,
+        narration: widget.vendorID,
+        time: DateTime.now(),
+        transactionType: TransactionType.withdraw,
+      ));
+
+      locator<UserService>().setUserData(User(
+        accountNumber: user.accountNumber,
+        address: user.address,
+        balance: closingBal.toString(),
+        firstName: user.firstName,
+        lastName: user.lastName,
+        gender: user.gender,
+        gmail: user.gmail,
+        id: user.id,
+        ifscCode: user.ifscCode,
+        phone: user.phone,
+      ));
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PaymentStatus(
+            result: "Successful",
+            ico: "tick",
+          ),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              PaymentStatus(result: "Unsuccessful", ico: "cross"),
+        ),
+      );
+    }
+    ctr = 0;
+    _pin = "";
+    myDots.clear();
   }
 
   @override

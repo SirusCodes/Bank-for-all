@@ -1,4 +1,5 @@
 import 'package:bank_for_all/screens/accno_input_screen/accno_input_screen.dart';
+import 'package:bank_for_all/screens/pin_screen/pin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_recognition/speech_recognition.dart';
@@ -182,27 +183,31 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 numberButton(0),
-                
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Semantics(
-                  label: "Go to Account Number input Screen",
+                  label: "Confirm to enter pin",
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AccnoInputScreen()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PinScreen(
+                            vendorID: widget.vendorID,
+                            amount: resultText,
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
-                      
                       width: 150,
                       height: 50,
                       decoration: BoxDecoration(
-                          color: Colors.blue[200], borderRadius: BorderRadiusDirectional.circular(15)),
+                          color: Colors.blue[200],
+                          borderRadius: BorderRadiusDirectional.circular(15)),
                       child: Icon(
                         Icons.keyboard_arrow_right,
                         color: Colors.black,
