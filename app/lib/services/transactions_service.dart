@@ -20,6 +20,14 @@ class TransactionService {
     return ref.snapshots();
   }
 
+  Stream<QuerySnapshot> getDeposit() {
+    return ref.where("transactionType", isEqualTo: "deposit").snapshots();
+  }
+
+  Stream<QuerySnapshot> getWithdraw() {
+    return ref.where("transactionType", isEqualTo: "withdraw").snapshots();
+  }
+
   Future<DocumentReference> addTransaction(trans.Transaction tran) {
     return ref.add(tran.toJson());
   }
