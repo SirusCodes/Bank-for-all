@@ -121,10 +121,20 @@ class _CenterScreenState extends State<CenterScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const AmountInputScreen()),
-                ),
+                onPressed: () {
+                  if (resultText.isNotEmpty) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => AmountInputScreen(vendorID: resultText),
+                      ),
+                    );
+                  } else {
+                    speak(
+                      "to proceed to pay say vendor id by pressing on center button and the confirm it",
+                    );
+                  }
+                },
                 child: const Text(
                   "Confirm",
                   style: TextStyle(

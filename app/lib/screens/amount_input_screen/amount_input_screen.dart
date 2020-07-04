@@ -3,7 +3,9 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
 class AmountInputScreen extends StatefulWidget {
-  const AmountInputScreen({Key key}) : super(key: key);
+  const AmountInputScreen({Key key, @required this.vendorID}) : super(key: key);
+
+  final String vendorID;
   @override
   _AmountInputScreenState createState() => _AmountInputScreenState();
 }
