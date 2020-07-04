@@ -17,6 +17,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     gender: _$enumDecodeNullable(_$GenderEnumEnumMap, json['gender']),
     accountNumber: json['accountNumber'] as String,
     ifscCode: json['ifscCode'] as String,
+    balance: json['balance'] as String,
   );
 }
 
@@ -29,6 +30,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'accountNumber': instance.accountNumber,
       'ifscCode': instance.ifscCode,
       'id': instance.id,
+      'balance': instance.balance,
       'gender': _$GenderEnumEnumMap[instance.gender],
     };
 
