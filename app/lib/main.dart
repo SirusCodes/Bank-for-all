@@ -15,28 +15,37 @@ void main() {
   runApp(MyApp());
 }
 
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Bank for all',
+//       theme: theme,
+//       home: AnimatedSplashScreen.withScreenFunction(
+//         splash: "assets/images/mic_icon.png",
+//         centered: true,
+//         splashTransition: SplashTransition.fadeTransition,
+//         pageTransitionType: PageTransitionType.rightToLeftWithFade,
+//         curve: Curves.easeInExpo,
+//         backgroundColor: const Color(0xFF1A1A1A),
+//         screenFunction: () async {
+//           return locator<SharedPrefs>().getUser().then((value) {
+//             return locator<SharedPrefs>().authID == null
+//                 ? const LoginScreen()
+//                 : const FingerPrintScreen();
+//           });
+//         },
+//       ),
+//     );
+//   }
+// }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bank for all',
       theme: theme,
-      home: AnimatedSplashScreen.withScreenFunction(
-        splash: "assets/images/mic_icon.png",
-        centered: true,
-        splashTransition: SplashTransition.fadeTransition,
-        pageTransitionType: PageTransitionType.rightToLeftWithFade,
-        curve: Curves.easeInExpo,
-        backgroundColor: const Color(0xFF1A1A1A),
-        screenFunction: () async {
-          return locator<SharedPrefs>().getUser().then((value) {
-            return locator<SharedPrefs>().authID == null
-                ? const LoginScreen()
-                : const FingerPrintScreen();
-          });
-        },
-      ),
+      home: const AmountInputScreen(),
     );
   }
 }
-
