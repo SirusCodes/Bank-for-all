@@ -21,10 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
     await flutterTts.speak(word);
   }
 
-    void initState(){
-    super.initState();
-    speak("To make payment, first tell us the receiver's number mentioned above the barcode. We'll repeat the number. Press middle of the screen to confirm. Press the upper right corner to restart transaction. Press the middle right corner to check your balance. Press the lower right corner for voice assistance to verify the payment. You can either use PIN or pattern verification to use PIN verification. Start typing your password with number five in middle of the screen. It's the only number that vibrates.Then you can proceed to enter your six digit pin like a normal keypad to use pattern verification. Setup your pattern by tapping one square at a time in a sequence that you like to setup your passwords. Please use assistance of a bank employee. Now your payment is made successfully.");
-  }
+  //   void initState(){
+  //   super.initState();
+  //   speak("To make payment, first tell us the receiver's number mentioned above the barcode. We'll repeat the number. Press middle of the screen to confirm. Press the upper right corner to restart transaction. Press the middle right corner to check your balance. Press the lower right corner for voice assistance to verify the payment. You can either use PIN or pattern verification to use PIN verification. Start typing your password with number five in middle of the screen. It's the only number that vibrates.Then you can proceed to enter your six digit pin like a normal keypad to use pattern verification. Setup your pattern by tapping one square at a time in a sequence that you like to setup your passwords. Please use assistance of a bank employee. Now your payment is made successfully.");
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:bank_for_all/screens/accno_input_screen/accno_input_screen.dart';
 import 'package:bank_for_all/screens/amount_input_screen/amount_input_screen.dart';
+import 'package:bank_for_all/screens/landing_screen/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -15,37 +16,37 @@ void main() {
   runApp(MyApp());
 }
 
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Bank for all',
-//       theme: theme,
-//       home: AnimatedSplashScreen.withScreenFunction(
-//         splash: "assets/images/mic_icon.png",
-//         centered: true,
-//         splashTransition: SplashTransition.fadeTransition,
-//         pageTransitionType: PageTransitionType.rightToLeftWithFade,
-//         curve: Curves.easeInExpo,
-//         backgroundColor: const Color(0xFF1A1A1A),
-//         screenFunction: () async {
-//           return locator<SharedPrefs>().getUser().then((value) {
-//             return locator<SharedPrefs>().authID == null
-//                 ? const LoginScreen()
-//                 : const FingerPrintScreen();
-//           });
-//         },
-//       ),
-//     );
-//   }
-// }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Bank for all',
       theme: theme,
-      home: const AmountInputScreen(),
+      home: AnimatedSplashScreen.withScreenFunction(
+        splash: "assets/images/mic_icon.png",
+        centered: true,
+        splashTransition: SplashTransition.fadeTransition,
+        pageTransitionType: PageTransitionType.rightToLeftWithFade,
+        curve: Curves.easeInExpo,
+        backgroundColor: const Color(0xFF1A1A1A),
+        screenFunction: () async {
+          return locator<SharedPrefs>().getUser().then((value) {
+            return locator<SharedPrefs>().authID == null
+                ? const LoginScreen()
+                : const FingerPrintScreen();
+          });
+        },
+      ),
     );
   }
 }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: theme,
+//       home: const LandingScreen(),
+//     );
+//   }
+// }
