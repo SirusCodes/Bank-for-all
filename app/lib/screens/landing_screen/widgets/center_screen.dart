@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../pin_screen/pin_screen.dart';
+import '../../amount_input_screen/amount_input_screen.dart';
 
 class CenterScreen extends StatelessWidget {
   const CenterScreen({
@@ -34,7 +34,7 @@ class CenterScreen extends StatelessWidget {
                 ),
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const PinScreen()),
+                  MaterialPageRoute(builder: (_) => const AmountInputScreen()),
                 ),
                 child: const Text(
                   "Confirm",

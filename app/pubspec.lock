@@ -582,7 +582,7 @@ packages:
     source: hosted
     version: "1.7.0"
   speech_recognition:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: speech_recognition
       url: "https://pub.dartlang.org"
