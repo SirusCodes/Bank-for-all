@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../enums/gender_enum.dart';
 
-part 'user.g.dart';
+
 
 @JsonSerializable()
 class User {

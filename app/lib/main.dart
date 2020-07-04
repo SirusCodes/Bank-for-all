@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:bank_for_all/screens/accno_input_screen/accno_input_screen.dart';
 import 'package:bank_for_all/screens/amount_input_screen/amount_input_screen.dart';
 import 'package:bank_for_all/screens/landing_screen/landing_screen.dart';
+import 'package:bank_for_all/screens/transaction_screen/transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const AccountDetailScreen(),
+      home: const TransactionScreen(),
     );
   }
 }
