@@ -18,6 +18,6 @@ class UserService {
   }
 
   Future<void> setUserData(User userModel) {
-    return ref.document(user.authID).setData(userModel.toJson());
+    return ref.document(userModel.id).setData(userModel.toJson(), merge: true);
   }
 }

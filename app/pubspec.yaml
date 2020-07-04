@@ -28,7 +28,7 @@ dependencies:
   flutter_local_auth_invisible: ^0.4.1+2
   cloud_firestore: ^0.13.7
   google_sign_in: ^4.5.1
-  firebase_auth: ^0.16.1
+  firebase_auth: 0.15.5+3
   shared_preferences: ^0.5.7+3
   animated_splash_screen: ^1.0.0+1
   json_annotation: ^3.0.1
