@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../enums/gender_enum.dart';
 
-part 'user.g.dart';
+
 
 @JsonSerializable()
 class User {
@@ -13,7 +13,8 @@ class User {
       phone,
       accountNumber,
       ifscCode,
-      id;
+      id,
+      balance;
   final GenderEnum gender;
 
   User({
@@ -26,6 +27,7 @@ class User {
     this.gender,
     this.accountNumber,
     this.ifscCode,
+    this.balance,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
