@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+import 'package:speech_recognition/speech_recognition.dart';
+//import 'package:flutter_speech/flutter_speech.dart';
 
 class AmountInputScreen extends StatefulWidget {
   const AmountInputScreen({Key key}) : super(key: key);
@@ -7,14 +10,13 @@ class AmountInputScreen extends StatefulWidget {
 }
 
 class _AmountInputScreenState extends State<AmountInputScreen> {
+  
 
   int ctr = 0;
 
   final List<int> amount = [];
 
   String _pin = "";
-
-
 
   void addDot(int number) {
     if (ctr < 6) {
@@ -26,10 +28,27 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
       ctr = 0;
       _pin = "";
       amount.clear();
-     
     }
   }
 
+  SpeechRecognition _speech;
+
+  bool _speechRecognitionAvailable = false;
+  bool _isListening = false;
+
+  String transcription = '';
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    _speech=SpeechRecognition();
+    _speech.setAvailabilityHandler((bool result) =>setState(()=>_speechRecognitionAvailable=result));
+_speech.setRecognitionResultHandler((String text) =>setState(()=>transcription=text));
+
+
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,21 +56,20 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(bottom: 20),
-                
-                height: 40,
-                width: 350,
-                child: Center(
-                  child: Text(
-                    "Enter the Amount",
-                    style:TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                    ),
-                    ),
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+              height: 40,
+              width: 350,
+              child: Center(
+                child: Text(
+                  "Enter the Amount",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
                 ),
               ),
+            ),
             Container(
               width: 350,
               height: 50,
@@ -70,19 +88,22 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
                       children: <Widget>[
                         Text(
                           "$_pin",
-                        style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 5),
-                          ),
-                          
+                          style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 5),
+                        ),
                       ],
                     ),
                   ),
                   Semantics(
-                    label: "Double tap to speak",
-                    child: Image.asset("assets/images/mic_icon.png")
-                    )
+                      label: "Double tap to speak",
+                      child: InkWell(
+                          onTap: () {
+                            _speech.listen(locale:("en-US")).then((value) => print("$value"));
+                          },
+                          child: Image.asset("assets/images/mic_icon.png"))
+                          )
                 ],
               ),
             ),
@@ -115,7 +136,6 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
                 numberButton(9),
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -126,6 +146,8 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
         ),
       ),
     );
+
+ 
   }
 
   Widget numberButton(int number) {
