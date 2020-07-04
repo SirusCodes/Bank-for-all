@@ -1,3 +1,4 @@
+import 'package:bank_for_all/screens/transaction_screen/transaction_screen.dart';
 import 'package:bank_for_all/services/user_service.dart';
 import 'package:bank_for_all/utils/setup_locator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,9 +25,22 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
               final user = User.fromJson(snapshot.data.data);
 
               return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Semantics(
+                    label: "Go back",
+                    child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 50,
+                        ),
+                      ),
+                    ),
+                  ),
                   Center(
                     child: Text(
                       "User Account Details",
@@ -106,6 +120,39 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                           )),
                         ),
                       ],
+                    ),
+                  ),
+                  Center(
+                    child: Semantics(
+                      label: "Go to transactions",
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TransactionScreen()));
+                        },
+                        child: Container(
+                          width: 150,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius:
+                                  BorderRadiusDirectional.circular(10)),
+                          child: Center(
+                            child: ExcludeSemantics(
+                              child: Text(
+                                "Okay",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],

@@ -1,3 +1,4 @@
+import 'package:bank_for_all/screens/accno_input_screen/accno_input_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
@@ -56,6 +57,23 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Row(
+              children: <Widget>[
+                Semantics(
+                  label: "Go back",
+                  child: InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 50,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             Container(
               margin: const EdgeInsets.only(bottom: 20),
               height: 40,
@@ -144,6 +162,35 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 numberButton(0),
+                
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Semantics(
+                  label: "Go to Account Number input Screen",
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AccnoInputScreen()));
+                    },
+                    child: Container(
+                      
+                      width: 150,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.blue[200], borderRadius: BorderRadiusDirectional.circular(15)),
+                      child: Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Colors.black,
+                        size: 40,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             )
           ],
