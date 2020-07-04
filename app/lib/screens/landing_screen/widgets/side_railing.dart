@@ -31,7 +31,7 @@ class SideRailing extends StatelessWidget {
                   child: Semantics(
                     button: true,
                     value: "Restart Transaction",
-                    sortKey: const OrdinalSortKey(1),
+                    sortKey: const OrdinalSortKey(2),
                     child: InkWell(
                       onTap: () {},
                       child: Column(
@@ -48,8 +48,8 @@ class SideRailing extends StatelessWidget {
               Expanded(
                 child: Semantics(
                   button: true,
-                  value: "Get Balance",
-                  sortKey: const OrdinalSortKey(2),
+                  value: "Get Account information",
+                  sortKey: const OrdinalSortKey(3),
                   child: InkWell(
                     onTap: () => Navigator.push(
                       context,
@@ -64,7 +64,7 @@ class SideRailing extends StatelessWidget {
                 child: Semantics(
                   button: true,
                   value: "Get help from executive",
-                  sortKey: const OrdinalSortKey(3),
+                  sortKey: const OrdinalSortKey(4),
                   child: InkWell(
                     onTap: () {},
                     child: Column(

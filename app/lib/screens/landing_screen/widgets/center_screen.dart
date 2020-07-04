@@ -89,6 +89,7 @@ class _CenterScreenState extends State<CenterScreen> {
               Semantics(
                 button: true,
                 value: "Say vendor ID",
+                sortKey: const OrdinalSortKey(0),
                 child: GestureDetector(
                   onTap: () {
                     if (_isAvailable && !_isListening) {
@@ -110,7 +111,7 @@ class _CenterScreenState extends State<CenterScreen> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 50),
             child: Semantics(
-              sortKey: const OrdinalSortKey(0),
+              sortKey: const OrdinalSortKey(1),
               child: RaisedButton(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 25.0,
