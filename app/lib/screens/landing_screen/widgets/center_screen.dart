@@ -1,20 +1,108 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:speech_recognition/speech_recognition.dart';
 
 import '../../amount_input_screen/amount_input_screen.dart';
 
-class CenterScreen extends StatelessWidget {
-  const CenterScreen({
-    Key key,
-  }) : super(key: key);
+class CenterScreen extends StatefulWidget {
+  const CenterScreen({Key key}) : super(key: key);
+
+  @override
+  _CenterScreenState createState() => _CenterScreenState();
+}
+
+class _CenterScreenState extends State<CenterScreen> {
+  int ctr = 0;
+
+  final FlutterTts flutterTts = FlutterTts();
+
+  void addDot(int number) {
+    if (ctr < 6) {
+      ctr++;
+
+      resultText += number.toString();
+    } else {
+      ctr = 0;
+      resultText = "";
+    }
+  }
+
+  SpeechRecognition _speechRecognition;
+  bool _isAvailable = false;
+  bool _isListening = false;
+  String resultText = "";
+
+  Future speak(String word) async {
+    await flutterTts.setPitch(1);
+    await flutterTts.speak(word);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _speechRecognition = SpeechRecognition();
+
+    _speechRecognition.setRecognitionStartedHandler(
+      () => setState(() => _isListening = true),
+    );
+
+    _speechRecognition.setRecognitionResultHandler(
+      (String speech) => setState(() {
+        resultText = speech;
+      }),
+    );
+
+    _speechRecognition.setRecognitionCompleteHandler(
+      () {
+        setState(() => _isListening = false);
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () async {
+            await speak(resultText);
+          },
+        );
+      },
+    );
+
+    _speechRecognition
+        .activate()
+        .then((result) => setState(() => _isAvailable = result as bool));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         Center(
-          child: ExcludeSemantics(
-            child: Image.asset("assets/images/mic_icon.png"),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ExcludeSemantics(
+                child: Text(
+                  resultText,
+                  style: const TextStyle(fontSize: 40, color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Semantics(
+                button: true,
+                value: "Say vendor ID",
+                child: GestureDetector(
+                  onTap: () {
+                    if (_isAvailable && !_isListening) {
+                      _speechRecognition.listen(locale: "en_IN").then(
+                        (result) {
+                          print(result);
+                        },
+                      );
+                    }
+                  },
+                  child: Image.asset("assets/images/mic_icon.png"),
+                ),
+              ),
+            ],
           ),
         ),
         Align(

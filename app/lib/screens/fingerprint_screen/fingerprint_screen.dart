@@ -27,7 +27,7 @@ class _FingerPrintScreenState extends State<FingerPrintScreen> {
     if (!mounted) return;
 
     if (authenticated) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const LandingScreen()),
       );
