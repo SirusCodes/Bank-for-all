@@ -36,16 +36,18 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
   bool _speechRecognitionAvailable = false;
   bool _isListening = false;
 
-  String transcription = '';
+  String transcription = "";
 
 
   @override
   void initState() {
     super.initState();
-
+    
     _speech=SpeechRecognition();
     _speech.setAvailabilityHandler((bool result) =>setState(()=>_speechRecognitionAvailable=result));
+    _speech.setRecognitionStartedHandler(() =>setState(()=>_isListening=true),);
 _speech.setRecognitionResultHandler((String text) =>setState(()=>transcription=text));
+_speech.setRecognitionCompleteHandler(() =>setState(()=>_isListening=false),);
 
 
 }

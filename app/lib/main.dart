@@ -11,42 +11,44 @@ import 'services/shared_prefs.dart';
 import 'utils/setup_locator.dart';
 import 'utils/theme.dart';
 
+import 'screens/account_detail_screen/account_detail_screen.dart';
+
 void main() {
   setupLocator();
   runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Bank for all',
-      theme: theme,
-      home: AnimatedSplashScreen.withScreenFunction(
-        splash: "assets/images/mic_icon.png",
-        centered: true,
-        splashTransition: SplashTransition.fadeTransition,
-        pageTransitionType: PageTransitionType.rightToLeftWithFade,
-        curve: Curves.easeInExpo,
-        backgroundColor: const Color(0xFF1A1A1A),
-        screenFunction: () async {
-          return locator<SharedPrefs>().getUser().then((value) {
-            return locator<SharedPrefs>().authID == null
-                ? const LoginScreen()
-                : const FingerPrintScreen();
-          });
-        },
-      ),
-    );
-  }
 }
 
 // class MyApp extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
+//       title: 'Bank for all',
 //       theme: theme,
-//       home: const LandingScreen(),
+//       home: AnimatedSplashScreen.withScreenFunction(
+//         splash: "assets/images/mic_icon.png",
+//         centered: true,
+//         splashTransition: SplashTransition.fadeTransition,
+//         pageTransitionType: PageTransitionType.rightToLeftWithFade,
+//         curve: Curves.easeInExpo,
+//         backgroundColor: const Color(0xFF1A1A1A),
+//         screenFunction: () async {
+//           return locator<SharedPrefs>().getUser().then((value) {
+//             return locator<SharedPrefs>().authID == null
+//                 ? const LoginScreen()
+//                 : const FingerPrintScreen();
+//           });
+//         },
+//       ),
 //     );
 //   }
 // }
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: theme,
+      home: const AccountDetailScreen(),
+    );
+  }
+}
