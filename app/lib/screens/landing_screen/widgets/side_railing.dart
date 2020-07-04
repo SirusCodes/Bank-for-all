@@ -1,3 +1,4 @@
+import 'package:bank_for_all/screens/account_detail_screen/account_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -50,7 +51,11 @@ class SideRailing extends StatelessWidget {
                   value: "Get Balance",
                   sortKey: const OrdinalSortKey(2),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const AccountDetailScreen()),
+                    ),
                     child: Image.asset("assets/images/wallet.png"),
                   ),
                 ),
