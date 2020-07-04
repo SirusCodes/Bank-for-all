@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:speech_recognition/speech_recognition.dart';
-//import 'package:flutter_speech/flutter_speech.dart';
 
 class AmountInputScreen extends StatefulWidget {
   const AmountInputScreen({Key key}) : super(key: key);
@@ -10,47 +8,47 @@ class AmountInputScreen extends StatefulWidget {
 }
 
 class _AmountInputScreenState extends State<AmountInputScreen> {
-  
-
   int ctr = 0;
-
-  final List<int> amount = [];
-
-  String _pin = "";
 
   void addDot(int number) {
     if (ctr < 6) {
       ctr++;
-      amount.add(number);
-      _pin += number.toString();
-      print(_pin);
+
+      resultText += number.toString();
     } else {
       ctr = 0;
-      _pin = "";
-      amount.clear();
+      resultText = "";
     }
   }
 
-  SpeechRecognition _speech;
-
-  bool _speechRecognitionAvailable = false;
+  SpeechRecognition _speechRecognition;
+  bool _isAvailable = false;
   bool _isListening = false;
-
-  String transcription = "";
-
+  String resultText = "";
 
   @override
   void initState() {
     super.initState();
-    
-    _speech=SpeechRecognition();
-    _speech.setAvailabilityHandler((bool result) =>setState(()=>_speechRecognitionAvailable=result));
-    _speech.setRecognitionStartedHandler(() =>setState(()=>_isListening=true),);
-_speech.setRecognitionResultHandler((String text) =>setState(()=>transcription=text));
-_speech.setRecognitionCompleteHandler(() =>setState(()=>_isListening=false),);
 
+    _speechRecognition = SpeechRecognition();
 
-}
+    _speechRecognition.setRecognitionStartedHandler(
+      () => setState(() => _isListening = true),
+    );
+
+    _speechRecognition.setRecognitionResultHandler(
+      (String speech) => setState(() => resultText = speech),
+    );
+
+    _speechRecognition.setRecognitionCompleteHandler(
+      () => setState(() => _isListening = false),
+    );
+
+    _speechRecognition
+        .activate()
+        .then((result) => setState(() => _isAvailable = result as bool));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +57,7 @@ _speech.setRecognitionCompleteHandler(() =>setState(()=>_isListening=false),);
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 20),
+              margin: const EdgeInsets.only(bottom: 20),
               height: 40,
               width: 350,
               child: Center(
@@ -89,11 +87,12 @@ _speech.setRecognitionCompleteHandler(() =>setState(()=>_isListening=false),);
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "$_pin",
+                          resultText,
                           style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 5),
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 5,
+                          ),
                         ),
                       ],
                     ),
@@ -102,10 +101,13 @@ _speech.setRecognitionCompleteHandler(() =>setState(()=>_isListening=false),);
                       label: "Double tap to speak",
                       child: InkWell(
                           onTap: () {
-                            _speech.listen(locale:("en-US")).then((value) => print("$value"));
+                            if (_isAvailable && !_isListening) {
+                              _speechRecognition.listen(locale: "en_IN").then(
+                                    (result) => print(result),
+                                  );
+                            }
                           },
-                          child: Image.asset("assets/images/mic_icon.png"))
-                          )
+                          child: Image.asset("assets/images/mic_icon.png")))
                 ],
               ),
             ),
@@ -148,8 +150,6 @@ _speech.setRecognitionCompleteHandler(() =>setState(()=>_isListening=false),);
         ),
       ),
     );
-
- 
   }
 
   Widget numberButton(int number) {
