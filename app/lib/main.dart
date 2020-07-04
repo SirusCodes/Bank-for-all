@@ -1,8 +1,4 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:bank_for_all/screens/accno_input_screen/accno_input_screen.dart';
-import 'package:bank_for_all/screens/amount_input_screen/amount_input_screen.dart';
-import 'package:bank_for_all/screens/landing_screen/landing_screen.dart';
-import 'package:bank_for_all/screens/transaction_screen/transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -11,8 +7,6 @@ import 'screens/login_screen/login_screen.dart';
 import 'services/shared_prefs.dart';
 import 'utils/setup_locator.dart';
 import 'utils/theme.dart';
-
-import 'screens/account_detail_screen/account_detail_screen.dart';
 
 void main() {
   setupLocator();
