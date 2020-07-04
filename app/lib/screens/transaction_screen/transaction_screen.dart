@@ -16,15 +16,40 @@ class _TransactionScreenState extends State<TransactionScreen> {
         Center(
           child:ListView(
             children:<Widget>[
-              ListTile(
-                title: Text("data"), 
-                subtitle: Text("data"),
+              Container(
+                margin: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color:Colors.white,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: ListTile(
+                  title: Text("date",style: TextStyle(color:Colors.black),), 
+                  subtitle: Text("Acc no \n Amount",style: TextStyle(color:Colors.black),),
+                  trailing: Icon(Icons.call_received,color: Colors.green,),
+                ),
               )
             ]
           )
           ),
 
-        Center(child:Text("withdraw")),
+        Center(
+          child:ListView(
+            children:<Widget>[
+              Container(
+                margin: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color:Colors.white,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: ListTile(
+                  title: Text("date",style: TextStyle(color:Colors.black),), 
+                  subtitle: Text("Acc no \n Amount",style: TextStyle(color:Colors.black),),
+                  trailing: Icon(Icons.call_made,color: Colors.red,),
+                ),
+              )
+            ]
+          )
+          ),
     ];
     final tabs =<Tab>[
       Tab(text: "Deposit"),
@@ -35,7 +60,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         length: tabs.length, 
         child: Scaffold(
           appBar: AppBar(
-            title: Text("Transactions"),
+            title: Text("My Transactions"),
             bottom: TabBar(tabs: tabs),
           ),
           body: TabBarView(children: tabpages),
