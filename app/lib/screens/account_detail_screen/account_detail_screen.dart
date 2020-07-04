@@ -41,7 +41,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                       ),
                     ),
                   ),
-                  Center(
+                  const Center(
                     child: Text(
                       "User Account Details",
                       style: TextStyle(

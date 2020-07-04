@@ -14,6 +14,7 @@ class UserService {
   }
 
   Future<DocumentSnapshot> getUserData() async {
+    await user.getUser();
     return ref.document(user.authID).get();
   }
 

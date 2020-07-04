@@ -1,5 +1,6 @@
 import 'package:bank_for_all/screens/accno_input_screen/accno_input_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 
 class AmountInputScreen extends StatefulWidget {
@@ -10,6 +11,8 @@ class AmountInputScreen extends StatefulWidget {
 
 class _AmountInputScreenState extends State<AmountInputScreen> {
   int ctr = 0;
+
+  final FlutterTts flutterTts = FlutterTts();
 
   void addDot(int number) {
     if (ctr < 6) {
@@ -27,6 +30,11 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
   bool _isListening = false;
   String resultText = "";
 
+  Future speak(String word) async {
+    await flutterTts.setPitch(1);
+    await flutterTts.speak(word);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +50,15 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
     );
 
     _speechRecognition.setRecognitionCompleteHandler(
-      () => setState(() => _isListening = false),
+      () => setState(() {
+        _isListening = false;
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () async {
+            await speak(resultText);
+          },
+        );
+      }),
     );
 
     _speechRecognition
@@ -116,16 +132,18 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
                     ),
                   ),
                   Semantics(
-                      label: "Double tap to speak",
-                      child: InkWell(
-                          onTap: () {
-                            if (_isAvailable && !_isListening) {
-                              _speechRecognition.listen(locale: "en_IN").then(
-                                    (result) => print(result),
-                                  );
-                            }
-                          },
-                          child: Image.asset("assets/images/mic_icon.png")))
+                    button: true,
+                    label: "Say Amount",
+                    child: InkWell(
+                        onTap: () {
+                          if (_isAvailable && !_isListening) {
+                            _speechRecognition.listen(locale: "en_IN").then(
+                                  (result) => print(result),
+                                );
+                          }
+                        },
+                        child: Image.asset("assets/images/mic_icon.png")),
+                  )
                 ],
               ),
             ),
