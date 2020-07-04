@@ -1,14 +1,16 @@
-import 'package:bank_for_all/screens/account_detail_screen/account_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../account_detail_screen/account_detail_screen.dart';
+import 'center_screen.dart';
 
 class SideRailing extends StatelessWidget {
-  const SideRailing({
-    Key key,
-  }) : super(key: key);
+  const SideRailing({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<CenterScreenState> _key = GlobalKey<CenterScreenState>();
     return Stack(
       children: <Widget>[
         Positioned.fill(
@@ -33,7 +35,7 @@ class SideRailing extends StatelessWidget {
                     value: "Restart Transaction",
                     sortKey: const OrdinalSortKey(2),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () => _key.currentState.resetVendor(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
@@ -66,7 +68,7 @@ class SideRailing extends StatelessWidget {
                   value: "Get help from executive",
                   sortKey: const OrdinalSortKey(4),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () => launch("tel:+91 1234567890"),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.end,

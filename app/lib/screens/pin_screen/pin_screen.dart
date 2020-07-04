@@ -1,14 +1,14 @@
-import 'package:bank_for_all/enums/transaction_type.dart';
-import 'package:bank_for_all/models/transaction/transaction.dart';
-import 'package:bank_for_all/models/user/user.dart';
-import 'package:bank_for_all/screens/payment_status/payment_status.dart';
-import 'package:bank_for_all/services/shared_prefs.dart';
-import 'package:bank_for_all/services/transactions_service.dart';
-import 'package:bank_for_all/services/user_service.dart';
-import 'package:bank_for_all/utils/setup_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+
+import '../../enums/transaction_type.dart';
+import '../../models/transaction/transaction.dart';
+import '../../models/user/user.dart';
+import '../../services/transactions_service.dart';
+import '../../services/user_service.dart';
+import '../../utils/setup_locator.dart';
+import '../payment_status/payment_status.dart';
 
 class PinScreen extends StatefulWidget {
   const PinScreen({
@@ -205,9 +205,44 @@ class _PinScreenState extends State<PinScreen> {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+                Semantics(
+                  label: "Backspace",
+                  child: InkWell(
+                    onTap: () {
+                      final len = _pin.length;
+                      _pin = _pin.substring(0, len - 1);
+
+                      ctr = len - 1;
+
+                      setState(() {
+                        myDots.removeLast();
+                      });
+
+                      speak("last number is removed");
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 30, bottom: 10),
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          color: Colors.blue[200],
+                          borderRadius: BorderRadiusDirectional.circular(15)),
+                      child: Icon(
+                        Icons.backspace,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
                 numberButton(0),
+                Container(
+                  margin: const EdgeInsets.only(top: 30, bottom: 10),
+                  width: 80,
+                  height: 80,
+                )
               ],
             ),
           ],
@@ -232,7 +267,7 @@ class _PinScreenState extends State<PinScreen> {
           child: Center(
             child: Text(
               number.toString(),
-              style: const TextStyle(fontSize: 30),
+              style: const TextStyle(fontSize: 45),
             ),
           ),
         ),

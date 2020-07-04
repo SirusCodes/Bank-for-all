@@ -18,13 +18,16 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
   final FlutterTts flutterTts = FlutterTts();
 
   void addDot(int number) {
-    if (ctr < 6) {
+    if (int.parse(resultText) < 6) {
       ctr++;
 
       resultText += number.toString();
+      speak("$number was added");
     } else {
       ctr = 0;
       resultText = "";
+
+      speak("Amount above 99999 should be made from bank only");
     }
   }
 
@@ -180,31 +183,59 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+                Semantics(
+                  label: "Backspace",
+                  child: InkWell(
+                    onTap: () {
+                      final len = resultText.length;
+                      resultText = resultText.substring(0, len - 1);
+
+                      ctr = len - 1;
+
+                      setState(() {});
+
+                      speak("last number is removed");
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 30, bottom: 10),
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          color: Colors.blue[200],
+                          borderRadius: BorderRadiusDirectional.circular(15)),
+                      child: Icon(
+                        Icons.backspace,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
                 numberButton(0),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
                 Semantics(
                   label: "Confirm to enter pin",
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PinScreen(
-                            vendorID: widget.vendorID,
-                            amount: resultText,
+                      if (resultText.isNotEmpty && int.parse(resultText) > 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PinScreen(
+                              vendorID: widget.vendorID,
+                              amount: resultText,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      } else {
+                        speak("Enter some Amount");
+                      }
                     },
                     child: Container(
-                      width: 150,
-                      height: 50,
+                      margin: const EdgeInsets.only(top: 30, bottom: 10),
+                      width: 80,
+                      height: 80,
                       decoration: BoxDecoration(
                           color: Colors.blue[200],
                           borderRadius: BorderRadiusDirectional.circular(15)),
@@ -217,7 +248,7 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -240,7 +271,7 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
           child: Center(
             child: Text(
               number.toString(),
-              style: const TextStyle(fontSize: 30),
+              style: const TextStyle(fontSize: 45),
             ),
           ),
         ),

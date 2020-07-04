@@ -9,23 +9,16 @@ class CenterScreen extends StatefulWidget {
   const CenterScreen({Key key}) : super(key: key);
 
   @override
-  _CenterScreenState createState() => _CenterScreenState();
+  CenterScreenState createState() => CenterScreenState();
 }
 
-class _CenterScreenState extends State<CenterScreen> {
+class CenterScreenState extends State<CenterScreen> {
   int ctr = 0;
 
   final FlutterTts flutterTts = FlutterTts();
 
-  void addDot(int number) {
-    if (ctr < 6) {
-      ctr++;
-
-      resultText += number.toString();
-    } else {
-      ctr = 0;
-      resultText = "";
-    }
+  void resetVendor() {
+    resultText = "";
   }
 
   SpeechRecognition _speechRecognition;
