@@ -27,7 +27,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Center(
+                  const Center(
                     child: Text(
                       "User Account Details",
                       style: TextStyle(
