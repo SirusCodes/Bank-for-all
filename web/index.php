@@ -1,5 +1,4 @@
-<!doctype html>
-<!DOCTYPE html>
+
 <html style="background-color: #868EAF">
   <head>
     <title>New Member Registration</title>
@@ -9,7 +8,7 @@
       html, body {
       min-height: 100%;
       }
-      body, div, form, input, select, textarea, label, p { 
+      body, div, form, input, select, textarea, label, p {
       padding: 0;
       margin: 0;
       outline: none;
@@ -42,12 +41,12 @@
       padding: 20px;
       border-radius: 6px;
       background: #fff;
-      box-shadow: 0 0 8px  #669999; 
+      box-shadow: 0 0 8px  #669999;
       }
       .banner {
       position: relative;
       height: 300px;
-      background-image: url(bfacover.jpg);  
+      background-image: url(bfacover.jpg);
       background-size: cover;
       display: flex;
       justify-content: center;
@@ -56,7 +55,7 @@
       }
       .banner::after {
       content: "";
-      background-color: rgba(0, 0, 0, 0.2); 
+      background-color: rgba(0, 0, 0, 0.2);
       position: absolute;
       width: 100%;
       height: 100%;
@@ -173,7 +172,7 @@
       width: 150px;
       padding: 10px;
       border: none;
-      border-radius: 5px; 
+      border-radius: 5px;
       background:  #669999;
       font-size: 16px;
       color: #fff;
@@ -202,7 +201,8 @@
   </head>
   <body>
     <div class="testbox">
-      <form action="/">
+      <form action="server.php" method="post">
+
         <div class="banner">
           <h1>Bank for all Member Registration</h1>
         </div>
@@ -217,11 +217,11 @@
           </div>
           <div class="item">
             <label for="address1">Address 1<span>*</span></label>
-            <input id="address1" type="text"   name="address1" required/>
+            <input id="address1" type="text"   name="add1" required/>
           </div>
           <div class="item">
             <label for="address2">Address 2<span>*</span></label>
-            <input id="address2" type="text"   name="address2" required/>
+            <input id="address2" type="text"   name="add2" required/>
           </div>
           <div class="item">
             <label for="state">State<span>*</span></label>
@@ -237,26 +237,26 @@
           </div>
           <div class="item">
             <label for="eaddress">Email Address<span>*</span></label>
-            <input id="eaddress" type="text"   name="eaddress" required/>
+            <input id="eaddress" type="text"   name="email" required/>
           </div>
           <div class="item">
             <label for="phone">Phone<span>*</span></label>
-            <input id="phone" type="tel"   name="phone" required/>
+            <input id="phone" type="text"   name="phone" required/>
           </div>
         </div>
         <div class="question">
           <label>Gender</label>
           <div class="question-answer">
             <div>
-              <input type="radio" value="none" id="radio_1" name="type"/>
+              <input type="radio" value="male" id="radio_1" name="gender"/>
               <label for="radio_1" class="radio"><span>Male</span></label>
             </div>
             <div>
-              <input  type="radio" value="none" id="radio_2" name="type"/>
+              <input  type="radio" value="female" id="radio_2" name="gender"/>
               <label for="radio_2" class="radio"><span>Female</span></label>
             </div>
             <div>
-              <input  type="radio" value="none" id="radio_3" name="type"/>
+              <input  type="radio" value="other" id="radio_3" name="gender"/>
               <label for="radio_3" class="radio"><span>Other</span></label>
             </div>
           </div>
@@ -264,12 +264,12 @@
           </div>
         </div>
         <h2 style="padding: 0rem 0rem 0rem 2rem; color: white">Terms and Conditions</h2>
-        <input type="checkbox" name="checkbox1">
+        <!-- <input type="checkbox" name="checkbox1"> -->
         <div style="padding: 2rem">
         <label style="color: white">You consent to receive communications from us electronically. We will communicate with you by e-mail or phone. You agree that all agreements, notices, disclosures and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.</label>
       </div>
         <div class="btn-block">
-          <button type="submit" href="/" style="background-color: #7D83AD;" >Submit</button>
+          <button type="submit"name="reg_user" style="background-color: #7D83AD;" >Submit</button>
         </div>
       </form>
     </div>
