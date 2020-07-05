@@ -18,7 +18,7 @@ class _AmountInputScreenState extends State<AmountInputScreen> {
   final FlutterTts flutterTts = FlutterTts();
 
   void addDot(int number) {
-    if (int.parse(resultText) < 6) {
+    if (ctr < 6) {
       ctr++;
 
       resultText += number.toString();
